@@ -1,0 +1,27 @@
+We need to generate realistic looking data, for 100 primary records.
+
+Inputs: Number or records, options for the data
+Output: Number of records
+Constraints: None, faster is better
+Edge Cases: Images, ?
+
+One to One:
+Each record is linked to one attribute.
+Create a record. Create another. Repeate until I have enough.
+  Creat a record
+  Input: options for the data
+  Output: The record
+  C, E: None for now.
+
+  Define the fields I need.
+  Create 'random' information for each field (does not need to be random, but of the generally correct type)
+  1. Iterate across an array or options
+  2. Use Math.random()
+  3. Use faker.js
+
+  Images: Use Amazon S3 to store the images, and then keep url to S3 in the database.
+
+One to Many: (Linked tables or nesting)
+Crate a record, Create all the linked or nested records. Create another primary record. Create its related records. Repeate until I have enough.
+
+Many to Many:
