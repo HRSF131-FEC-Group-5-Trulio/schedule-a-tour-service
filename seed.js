@@ -49,7 +49,6 @@ function seedData(entries) {
       }
     })
   })
-
 }
 
 seedData(10)
