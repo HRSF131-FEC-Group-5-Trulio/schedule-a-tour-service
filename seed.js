@@ -1,38 +1,47 @@
-const fs = require('fs');
+const mongoose = require('mongoose');
 const faker = require('faker');
 
+mongoose.connect('mongodb://localhost/schedule', {useNewUrlParser: true});
 
-//Seeding is just a complicated for loop
-//Lets look at approach one seeding to a file iteration
-const images = ['https://s3-us-west-1.amazonaws.com/demo.fec.schedule/Scrum_process.jpg']
-const prices = [10, 20, 30];
-// Faker test
-// let city = faker.image.city();
-// console.log(city)
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('Welcome to MongoDB!')
+});
 
+const schedules = [];
 
-function createRecord(images, prices, id) {
-  let dataStr = '';
-  dataStr += `${id}`;
-  dataStr += ` ${Math.floor(Math.random() * 10)}`
-  dataStr += ` ${images[id % 2]}`;
-  dataStr += ` ${prices[id % 3]}`;
-  dataStr += ` ${faker.image.avatar()}`
-  dataStr += `\n`;
+const scheduleSchema = new mongoose.Schema({
+  name: String,
+  phoneNumber: String,
+  email: String,
+  createdAt: Date,
+  inPerson: Boolean,
+  financing: Boolean
+});
 
-  return dataStr;
+const Schedule = mongoose.model('Schedule', scheduleSchema);
+
+function createRecord() {
+  let schedule = {};
+  schedule.name = faker.name.findName();
+  schedule.phoneNumber = faker.phone.phoneNumber();
+  schedule.email = faker.internet.email();
+  schedule.createdAt = new Date();
+  schedule.inPerson = Math.floor(Math.random() * 2);
+  schedule.financing = Math.floor(Math.random() * 2);
+  return schedule;
 }
 
 function seedData(entries) {
   let created = 1;
-  let fileText = '';
   while (created <= entries) {
-    fileText += createRecord(images, prices, created);
+    schedules.push(createRecord());
     created++;
   }
 
   return new Promise((resolve, reject) => {
-    fs.writeFile('data.txt', fileText, (err, data) => {
+    Schedule.insertMany(schedules, (err, data) => {
       if (err) {
         reject(err)
       } else {
