@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Tab from './Tab';
-import TourType from './TourType';
-import ChooseDate from './ChooseDate';
-import ChooseTime from './ChooseTime';
+import Schedule from './Schedule';
+import Request from './Request';
+
 
 const OneThird = styled.div`
   border-style: solid;
@@ -18,28 +18,29 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: null,
+      currentTab: null,
     };
   }
 
   componentDidMount() {
-    this.setState({current: 'left'});
+    this.setState({currentTab: 'schedule'});
   }
 
   render() {
+    const { currentTab } = this.state;
+    let tab = '';
+    if ({currentTab} === 'schedule') {
+      tab = <Schedule />;
+    } else if ({currentTab} === 'request') {
+      tab = <Request />;
+    }
     return (
       <OneThird>
         <div>
-          <Tab current={this.state.current}/>
+          <Tab />
         </div>
         <div>
-          <form>
-            <TourType />
-            <div>
-              <ChooseDate />
-              <ChooseTime />
-            </div>
-          </form>
+          {tab}
         </div>
       </OneThird>
     );

@@ -102,21 +102,31 @@ class Tab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked: null,
+      current: null,
     };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     this.setState({
-      clicked: 'right',
+      current: 'left',
     });
+  }
+
+  handleClick() {
+    const current = this.state.current;
+    if (current === 'left') {
+      this.setState({current: 'right'});
+    } else {
+      this.setState({current: 'left'});
+    }
   }
 
 
   render() {
-    const clicked = this.state.clicked;
-    const leftTab = clicked === 'left' ? <LeftButton onClick={this.handleClick}><DivInButton>Schedule A Tour</DivInButton></LeftButton> : <Button>Schdule A Tour</Button>;
-    const rightTab = clicked === 'right' ? <RightButton><DivInButton>Request Info</DivInButton></RightButton> : <Button>Request Info</Button>;
+    const clicked = this.state.current;
+    const leftTab = clicked === 'left' ? <LeftButton onClick={this.handleClick}><DivInButton>Schedule A Tour</DivInButton></LeftButton> : <Button onClick={this.handleClick}>Schedule A Tour</Button>;
+    const rightTab = clicked === 'right' ? <RightButton onClick={this.handleClick}><DivInButton>Request Info</DivInButton></RightButton> : <Button onClick={this.handleClick}>Request Info</Button>;
     return (
       <FlexDiv>
         <DivInFlex>
