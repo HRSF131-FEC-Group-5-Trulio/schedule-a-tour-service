@@ -35,13 +35,9 @@ const Button = styled.button`
   padding-left: 16px;
   width: 100%;
 
-  outline: none;
-
   border-image: initial;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-
-
 `;
 
 const LeftButton = styled(Button)`
@@ -75,7 +71,7 @@ const RightButton = styled(Button)`
   box-shadow: rgb(255, 255, 255) 0px 2px 0px -2px;
   border-bottom-right-radius: 0px;
 
-  &:before {
+  &::before {
     position: absolute;
     content: " ";
     bottom: -2px;
