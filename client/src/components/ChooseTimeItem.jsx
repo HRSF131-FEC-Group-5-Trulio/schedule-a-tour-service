@@ -51,7 +51,8 @@ const Option = styled.option`
 
 
 const ChooseTimeItem = (props) => (
-  <Option value={props.time}>{props.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</Option>
+  <Option value={props.time}>{props.time}</Option>
+  // <Option value={props.time}>{props.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</Option>
 );
 
 export default ChooseTimeItem;

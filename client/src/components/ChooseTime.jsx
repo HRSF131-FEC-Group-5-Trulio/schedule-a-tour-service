@@ -103,35 +103,65 @@ class ChooseTime extends React.Component {
 
   handleSelect(e) {
     console.log(e.target.value);
-    this.setState(e.target.value);
+    this.setState({time: e.target.value});
+  }
+
+  makeTimesOfDay() {
+    let day = [];
+    const curr = new Date();
+    const currHour = curr.getHours();
+    let add;
+    currHour > 19 ? add = 1 : add = 0;
+    let firstDay = new Date(curr.setDate(curr.getDate() + add));
+    const dateString = firstDay.toDateString();
+    const date = new Date(dateString);
+    let futureHour = 9;
+    let i = 0;
+    while (futureHour < 19) {
+      const futureDate = new Date(date.getTime() + (9 * 60 * 60000) + (30 * 60000) * i);
+
+      var amPm = new Date(futureDate);
+      var options = {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      };
+      var timeString = amPm.toLocaleString('en-US', options);
+      day.push(timeString);
+
+      futureHour = futureDate.getHours();
+      i++;
+    }
+
+    return day;
   }
 
   render() {
 
-    this.props.time;
-
+    const timesOfDay = this.makeTimesOfDay();
+    const initialTime = this.state.time;
 
     return (
       <Padding>
         <SelectDiv>
           <InnerSelectDiv>
             <AlignDiv>
-              { this.state.time === null ? 'Choose a time' : this.state.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) }
+              { initialTime === null ? 'Choose a time' : initialTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) }
             </AlignDiv>
             <div>
               <i className="fas fa-angle-down"></i>
             </div>
             <Select onChange={e => this.handleSelect(e)}>
-              {<ChooseTimeItem time={this.props.time}/>}
+              {
+                timesOfDay.map((time, i) => <ChooseTimeItem key={i} time={time}/>)
+              }
             </Select>
           </InnerSelectDiv>
         </SelectDiv>
       </Padding>
     );
   }
-
 }
-
 
 export default ChooseTime;
 

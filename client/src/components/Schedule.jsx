@@ -30,11 +30,11 @@ const Schedule = (props) => (
           <TourType />
         </Padding>
         <Padding>
-          <ChooseDate />
+          <ChooseDate time={props.time}/>
           <ChooseTime time={props.time}/>
         </Padding>
         <Padding>
-          {/* <input /> */}
+          <input />
         </Padding>
         <Padding>
           ㅁ I want to talk about financing
