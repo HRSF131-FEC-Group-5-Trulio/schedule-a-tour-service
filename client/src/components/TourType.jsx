@@ -6,6 +6,7 @@ const InnerFormDiv = styled.div`
   display: inline-flex;
   width: 100%;
   font-family: TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif;
+  color: rgb(59, 65, 68);
 `;
 
 const Button = styled.div`
@@ -44,6 +45,10 @@ const RightButton = styled(Button)`
   border-left-color: transparent;
 `;
 
+const Label = styled.label`
+  color: rgb(134, 144, 153);
+`;
+
 class TourType extends React.Component {
   constructor(props) {
     super(props);
@@ -56,7 +61,7 @@ class TourType extends React.Component {
     return (
       <div>
         <InnerFormDiv>
-          <label>Tour Type&nbsp;&nbsp;<i className="far fa-question-circle"></i></label>
+          <Label>Tour Type&nbsp;&nbsp;<i className="far fa-question-circle"></i></Label>
         </InnerFormDiv>
         <InnerFormDiv>
           <LeftButton>In-Person</LeftButton>

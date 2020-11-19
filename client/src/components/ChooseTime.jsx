@@ -26,7 +26,7 @@ const SelectDiv = styled.div`
 
 const Padding = styled.div`
   padding-top: 8px;
-  padding-right: 0px;
+  padding-right: 16px;
   padding-bottom: 0px;
   padding-left: 0px;
 `;
@@ -36,6 +36,13 @@ const InnerSelectDiv = styled.div`
   -webkit-box-align: center;
   align-items: center;
   display: flex;
+
+  font-family: TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif;
+  color: rgb(59, 65, 68);
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: -0.1px;
 `;
 
 const Select = styled.select`
@@ -78,17 +85,53 @@ const Select = styled.select`
   }
 `;
 
-const ChooseTime = (props) => (
-  <Padding>
-    <SelectDiv>
-      <InnerSelectDiv>
-        <select>
-          <ChooseTimeItem time={props.time}/>
-        </select>
-      </InnerSelectDiv>
-    </SelectDiv>
-  </Padding>
-);
+const AlignDiv = styled.div`
+  margin-left: 0px;
+  flex: 1 1 0px;
+  width: 100%;
+  margin: 0px 8px;
+`;
+
+class ChooseTime extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: null,
+    };
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+
+  handleSelect(e) {
+    console.log(e.target.value);
+    this.setState(e.target.value);
+  }
+
+  render() {
+
+    this.props.time;
+
+
+    return (
+      <Padding>
+        <SelectDiv>
+          <InnerSelectDiv>
+            <AlignDiv>
+              { this.state.time === null ? 'Choose a time' : this.state.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) }
+            </AlignDiv>
+            <div>
+              <i className="fas fa-angle-down"></i>
+            </div>
+            <Select onChange={e => this.handleSelect(e)}>
+              {<ChooseTimeItem time={this.props.time}/>}
+            </Select>
+          </InnerSelectDiv>
+        </SelectDiv>
+      </Padding>
+    );
+  }
+
+}
+
 
 export default ChooseTime;
 

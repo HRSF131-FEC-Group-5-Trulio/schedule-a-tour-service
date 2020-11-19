@@ -5,12 +5,17 @@ import ChooseDateItem from './ChooseDateItem';
 const InnerFormDiv = styled.div`
   transform: translateX(0%);
   flex-wrap: nowrap;
-  transition: transform 0.45s ease 0s;
+  transition: transform 0.7s ease-in-out;
   display: flex;
-  overflow-x: auto;
+  overflow-x: scroll;
   margin-left: -4px;
   margin-right: -4px;
   margin-top: -8px;
+  justify-content: ${props => props.left === true ? 'flex-start' : 'flex-end'};
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  position: relative;
+  flex: 0 0 100%;
 
   &::-webkit-scrollbar {
     display: none;
@@ -19,8 +24,9 @@ const InnerFormDiv = styled.div`
 
 const RightArrowDiv = styled.div`
   position: absolute;
-  left: 282px;
+  left: 268px;
   top: 47%;
+  visibility: ${props => props.left === true ? null : 'hidden'};
 `;
 
 const LeftArrowDiv = styled.div`
@@ -28,6 +34,7 @@ const LeftArrowDiv = styled.div`
   z-index: 1;
   left: 6px;
   top: 47%;
+  visibility: ${props => props.left === true ? 'hidden' : null};
 `;
 
 const Button = styled.button`
@@ -44,15 +51,14 @@ const Button = styled.button`
   height: 32px;
   border: 1px solid rgb(232, 233, 234);
   background-color: rgb(255, 255, 255);
-
 `;
 
 const Position = styled.div`
   position: relative;
 `;
-const padding = styled.div`
-  overflow: hidden;
-  padding-top: 4px;
+
+const Padding = styled.div`
+  padding-top: 5px;
   padding-right: 4px;
   padding-bottom: 4px;
   padding-left: 4px;
@@ -64,7 +70,14 @@ class ChooseDate extends React.Component {
     super(props);
     this.state = {
       date: new Date(),
+      left: true,
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const left = !this.state.left;
+    this.setState({left: left});
   }
 
   render() {
@@ -86,21 +99,21 @@ class ChooseDate extends React.Component {
     return (
       <div>
         <Position>
-          <padding>
-            <InnerFormDiv id='container'>
+          <Padding>
+            <InnerFormDiv id='container' left={this.state.left}>
               {
                 week.map((day, i) => <ChooseDateItem weekDay={day[0].slice(0, 3)} day={day[2]} month={day[1]} key={i}/>)
               }
             </InnerFormDiv>
-          </padding>
+          </Padding>
         </Position>
-        <LeftArrowDiv>
-          <Button id='slideLeft' type='button'>
+        <LeftArrowDiv left={this.state.left}>
+          <Button type='button' onClick={this.handleClick}>
             <i className="fas fa-angle-left"></i>
           </Button>
         </LeftArrowDiv>
-        <RightArrowDiv>
-          <Button id='slideRight' type='button'>
+        <RightArrowDiv left={this.state.left}>
+          <Button type='button' onClick={this.handleClick}>
             <i className="fas fa-angle-right"></i>
           </Button>
         </RightArrowDiv>
