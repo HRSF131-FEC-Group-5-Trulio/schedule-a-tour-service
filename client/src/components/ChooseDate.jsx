@@ -24,16 +24,16 @@ const InnerFormDiv = styled.div`
 
 const RightArrowDiv = styled.div`
   position: absolute;
-  left: 266px;
-  top: 47%;
+  left: 29%;
+  top: 37%;
   visibility: ${props => props.left === true ? null : 'hidden'};
 `;
 
 const LeftArrowDiv = styled.div`
   position: absolute;
   z-index: 1;
-  left: 6px;
-  top: 47%;
+  left: 0.8%;
+  top: 37%;
   visibility: ${props => props.left === true ? 'hidden' : null};
 `;
 
@@ -71,8 +71,10 @@ class ChooseDate extends React.Component {
     this.state = {
       left: true,
       week: null,
+      date: null,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handelDate = this.handelDate.bind(this);
     this.makeDaysOfWeek = this.makeDaysOfWeek.bind(this);
   }
 
@@ -81,10 +83,14 @@ class ChooseDate extends React.Component {
     this.setState({left: left});
   }
 
+  handelDate() {
+
+  }
+
   makeDaysOfWeek() {
     let week = [];
     for (let i = 0; i < 7; i++) {
-      let curr = new Date();
+      let curr = new Date(); //'2021-01-02T00:00:00'
       let currTime = curr.getHours();
       let add;
       currTime > 19 ? add = 1 : add = 0;
@@ -104,7 +110,13 @@ class ChooseDate extends React.Component {
           <Padding>
             <InnerFormDiv id='container' left={this.state.left}>
               {
-                daysOfWeek.map((day, i) => <ChooseDateItem weekDay={day[0].slice(0, 3)} day={day[2]} month={day[1]} key={i}/>)
+                daysOfWeek.map((day, i) => <ChooseDateItem
+                  weekDay={day[0].slice(0, 3)}
+                  day={day[2]}
+                  month={day[1]}
+                  key={i}
+
+                />)
               }
             </InnerFormDiv>
           </Padding>

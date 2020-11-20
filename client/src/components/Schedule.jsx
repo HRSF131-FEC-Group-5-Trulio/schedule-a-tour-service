@@ -3,9 +3,14 @@ import styled from 'styled-components';
 import TourType from './TourType';
 import ChooseDate from './ChooseDate';
 import ChooseTime from './ChooseTime';
+import Input from './Input';
+import CheckBox from './CheckBox';
 
 const ScehduleDiv = styled.div`
-  padding: 16px;
+  padding-top: 16px;
+  padding-right: 16px;
+  padding-bottom: 16px;
+  padding-left: 16px;
 `;
 
 const InnerFormDiv = styled.div`
@@ -22,6 +27,11 @@ const Padding = styled.div`
   padding-left: 0px;
 `;
 
+const PaddingPhone = styled(Padding)`
+  padding-left: 8px;
+  display: inline-block;
+`;
+
 const Schedule = (props) => (
   <ScehduleDiv>
     <form>
@@ -33,12 +43,15 @@ const Schedule = (props) => (
           <ChooseDate time={props.time}/>
           <ChooseTime time={props.time}/>
         </Padding>
+        <Input />
+      </InnerFormDiv>
+      <InnerFormDiv>
         <Padding>
-          <input />
+          <CheckBox />
+          {/* <i class="far fa-check-square"></i>&nbsp;&nbsp;I want to talk about finaning */}
         </Padding>
-        <Padding>
-          ㅁ I want to talk about financing
-        </Padding>
+      </InnerFormDiv>
+      <InnerFormDiv>
         <Padding>
           <button>Schedule a Tour</button>
         </Padding>

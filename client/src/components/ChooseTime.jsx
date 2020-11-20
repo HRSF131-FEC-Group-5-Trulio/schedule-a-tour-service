@@ -108,17 +108,22 @@ class ChooseTime extends React.Component {
 
   makeTimesOfDay() {
     let day = [];
+    let add;
+
     const curr = new Date();
     const currHour = curr.getHours();
-    let add;
     currHour > 19 ? add = 1 : add = 0;
+
     let firstDay = new Date(curr.setDate(curr.getDate() + add));
+
     const dateString = firstDay.toDateString();
     const date = new Date(dateString);
+
     let futureHour = 9;
     let i = 0;
+
     while (futureHour < 19) {
-      const futureDate = new Date(date.getTime() + (9 * 60 * 60000) + (30 * 60000) * i);
+      const futureDate = new Date(date.getTime() + ((currHour + 3) * 60 * 60000) + (30 * 60000) * i);
 
       var amPm = new Date(futureDate);
       var options = {
@@ -132,7 +137,6 @@ class ChooseTime extends React.Component {
       futureHour = futureDate.getHours();
       i++;
     }
-
     return day;
   }
 
@@ -153,7 +157,10 @@ class ChooseTime extends React.Component {
             </div>
             <Select onChange={e => this.handleSelect(e)}>
               {
-                timesOfDay.map((time, i) => <ChooseTimeItem key={i} time={time}/>)
+                timesOfDay.map((time, i) => <ChooseTimeItem
+                  key={i}
+                  time={time}
+                />)
               }
             </Select>
           </InnerSelectDiv>
