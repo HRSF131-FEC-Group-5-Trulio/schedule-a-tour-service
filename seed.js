@@ -6,18 +6,18 @@ mongoose.connect('mongodb://localhost/schedule', {useUnifiedTopology: true, useN
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log('Welcome to MongoDB!')
+  console.log('Welcome to MongoDB!');
 });
 // id = this.location.pathname.slice(-10) way to get id from url
 const propertySchema = new mongoose.Schema({
   id: Number, //property id
   scheduleATour: Array, //schedules belong to this property
-})
+});
 
 const Property = mongoose.model('Property', propertySchema);
 
 
-function createProperty(schedule) {
+const createProperty = (schedule) => {
   let property = {};
 
   // array of sample property id
@@ -25,9 +25,9 @@ function createProperty(schedule) {
   property.id = idArr[Math.floor(Math.random() * 5)];
   property.scheduleATour = [schedule];
   return property;
-}
+};
 
-function createSchedule() {
+const createSchedule = () => {
   let schedule = {};
   schedule.name = faker.name.findName();
   schedule.phoneNumber = faker.phone.phoneNumber();
@@ -38,9 +38,9 @@ function createSchedule() {
   schedule.inPerson = Math.floor(Math.random() * 2);
   schedule.financing = Math.floor(Math.random() * 2);
   return schedule;
-}
+};
 
-function seedData(entries) {
+const seedData = (entries) => {
   let created = 1;
   let properties = [];
   while (created <= entries) {
@@ -64,14 +64,14 @@ function seedData(entries) {
   return new Promise((resolve, reject) => {
     Property.insertMany(properties, (err, data) => {
       if (err) {
-        reject(err)
+        reject(err);
       } else {
-        resolve(data)
+        resolve(data);
       }
-    })
-  })
-}
+    });
+  });
+};
 
 seedData(10)
-  .then(() => { console.log("Wasn't that easy") })
-  .catch(() => { console.log("Misdirect the student's quickly") });
+  .then(() => { console.log('Wasn\'t that easy'); })
+  .catch(() => { console.log('Misdirect the student\'s quickly'); });

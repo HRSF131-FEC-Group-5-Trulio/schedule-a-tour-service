@@ -9,8 +9,8 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR
   },
-  module : {
-    rules : [
+  module: {
+    rules: [
       {
         test: /\.m?js|jsx$/,
         exclude: /(node_modules|bower_components)/,
@@ -23,7 +23,7 @@ module.exports = {
       }
     ]
   },
-  resolve : {
-    extensions: ['js', 'jsx'],
+  resolve: {
+    extensions: ['.js', '.jsx'],
   }
 };
