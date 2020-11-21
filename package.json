@@ -41,6 +41,7 @@
     "jest-environment-enzyme": "^7.1.2",
     "jest-enzyme": "^7.1.2",
     "nodemon": "^2.0.6",
+    "prettier": "2.2.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^4.2.0"
   }

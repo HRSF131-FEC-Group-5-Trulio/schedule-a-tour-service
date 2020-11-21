@@ -15,6 +15,7 @@ const ItemDiv = styled.div`
   border-bottom-width: 1px;
   border-left-width: 4px;
   font-family: TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif;
+  margin-bottom: 1px;
 `;
 
 const ItemButton = styled.button`
@@ -33,10 +34,12 @@ const ItemButton = styled.button`
   color: rgb(59, 65, 68);
   background-color: rgb(255, 255, 255);
   border: 2px solid transparent;
-  box-shadow: ${props => props.clicked ? 'rgb(0, 173, 187) 0px 0px 0px 2px' : 'rgb(205, 209, 212) 0px 0px 0px 1px' };
+  box-shadow: ${props => props.clicked ? 'rgb(0, 173, 187) 0px 0px 0px 2px' : 'rgb(205, 209, 212) 0px 0px 0px 1px;' };
+  outline: none;
 
    &:hover {
     background-color: rgb(240, 240, 240);
+    transition: background-color 0.5s ease 0s;
   }
 `;
 
@@ -44,23 +47,30 @@ const DayDiv = styled.div`
   font-weight: bold;
   font-size: 20px;
   line-height: 1.2;
+  pointer-events:none;
 `;
 
 const NormalDiv = styled.div`
   display: block;
+  pointer-events:none;
 `;
 
 const ChooseDateItem = (props) => (
   <ItemDiv>
-    <ItemButton type='button' >
+    <ItemButton
+      type="button"
+      value={props.day}
+      id={props.id}
+      onClick={e => props.onclick(e)}
+    >
       <NormalDiv>
-        {props.weekDay}
+        {props.day.slice(0, 3)}
       </NormalDiv>
       <DayDiv>
-        {props.day}
+        {props.day.split(' ')[2]}
       </DayDiv>
       <NormalDiv>
-        {props.month}
+        {props.day.split(' ')[1]}
       </NormalDiv>
     </ItemButton>
   </ItemDiv>

@@ -4,16 +4,16 @@ import ChooseDateItem from './ChooseDateItem';
 
 const InnerFormDiv = styled.div`
   transform: translateX(0%);
-  flex-wrap: nowrap;
   transition: transform 0.7s ease-in-out;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   overflow-x: scroll;
   margin-left: -4px;
   margin-right: -4px;
   margin-top: -8px;
-  justify-content: ${props => props.left === true ? 'flex-start' : 'flex-end'};
   scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
   position: relative;
   flex: 0 0 100%;
 
@@ -51,6 +51,7 @@ const Button = styled.button`
   height: 32px;
   border: 1px solid rgb(232, 233, 234);
   background-color: rgb(255, 255, 255);
+  outline: none;
 `;
 
 const Position = styled.div`
@@ -74,17 +75,21 @@ class ChooseDate extends React.Component {
       date: null,
     };
     this.handleClick = this.handleClick.bind(this);
-    this.handelDate = this.handelDate.bind(this);
+    this.handleDate = this.handleDate.bind(this);
     this.makeDaysOfWeek = this.makeDaysOfWeek.bind(this);
   }
 
-  handleClick() {
-    const left = !this.state.left;
-    this.setState({left: left});
+  handleClick(e) {
+    const arrow = e.target.id;
+    if (arrow === 'leftArrow') {
+      this.setState({left: true});
+    } else {
+      this.setState({left: false});
+    }
   }
 
-  handelDate() {
-
+  handleDate(e) {
+    this.setState({date: e.target.value});
   }
 
   makeDaysOfWeek() {
@@ -96,7 +101,7 @@ class ChooseDate extends React.Component {
       currTime > 19 ? add = 1 : add = 0;
       let firstDay = new Date(curr.setDate(curr.getDate() + i + add));
       const options = {weekday: 'short', day: 'numeric', month: 'short'};
-      week.push(firstDay.toLocaleString('default', options).split(' '));
+      week.push(firstDay.toLocaleString('default', options));
     }
     return week;
   }
@@ -111,23 +116,36 @@ class ChooseDate extends React.Component {
             <InnerFormDiv id='container' left={this.state.left}>
               {
                 daysOfWeek.map((day, i) => <ChooseDateItem
-                  weekDay={day[0].slice(0, 3)}
-                  day={day[2]}
-                  month={day[1]}
+                  day={day}
                   key={i}
-
+                  id={i}
+                  onclick={this.handleDate}
                 />)
               }
             </InnerFormDiv>
           </Padding>
         </Position>
         <LeftArrowDiv left={this.state.left}>
-          <Button type='button' onClick={this.handleClick}>
+          <Button
+            id="leftArrow"
+            type="button"
+            onClick={e => {
+              this.handleClick(e);
+              document.getElementById('container').scrollLeft -= 300;
+            }}
+          >
             <i className="fas fa-angle-left"></i>
           </Button>
         </LeftArrowDiv>
         <RightArrowDiv left={this.state.left}>
-          <Button type='button' onClick={this.handleClick}>
+          <Button
+            id="rightArrow"
+            type="button"
+            onClick={e => {
+              this.handleClick(e);
+              document.getElementById('container').scrollLeft += 300;
+            }}
+          >
             <i className="fas fa-angle-right"></i>
           </Button>
         </RightArrowDiv>

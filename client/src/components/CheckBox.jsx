@@ -1,47 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import CheckBoxStyle from './CheckBoxStyle';
 
-const PaddingDiv = styled.div`
-  padding: 4px 0px 8px;
-  display: block;
-  box-sizing: border-box;
-  font-size: 14px;
-  line-height: 1.43;
-
-  font-family: TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif;
-  color: rgb(59, 65, 68);
-  letter-spacing: -0.1px;
-`;
-
-const Label = styled.label`
-  cursor: pointer;
-`;
-
-const FlexDiv = styled.div`
-  flex-direction: row;
-
-  align-items: center;
+const CheckBoxContainer = styled.div`
   display: flex;
+  align-items: center;
 `;
 
-const InnerFlexDiv = styled.div`
-  position: relative;
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 1px solid rgb(134, 144, 153);
-  border-radius: 3px;
-  align-item: center;
+const Input = styled.div`
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+
+  &:checked + Label::before {
+    content: '';
+    background-color: rgb(0, 120, 130);
+    box-shadow: rgb(0, 120, 130) 0px 0px 2px;
+    transition: background-color 0.2s, box-shadow 0.3s;
+  }
 `;
 
-const Span = styled.div`
+const Label = styled.div`
+  cursor: pointer;
+  display: flex;
   color: rgb(134, 144, 153);
   font-size: 12px;
-  line-height: 1.33;
-  margin-left: 8px;
-`;
+  font-family: TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif;
 
+  &::before {
+    content: '';
+    height: 14px;
+    width: 14px;
+    border-radius: 3px;
+    margin-right: .5em;
+    border: .05em solid lightgrey;
+  }
+
+  &:hover::before {
+    border: 1px solid black;
+    box-shadow: black 0px 0px 2px;
+    transition: border-color 0.2s, box-shadow 0.3s;
+  }
+`;
 
 class CheckBox extends React.Component {
   constructor(props) {
@@ -69,21 +68,16 @@ class CheckBox extends React.Component {
     }
 
     return (
-      <div>
-        <PaddingDiv>
-          <Label>
-            <FlexDiv>
-              <InnerFlexDiv>
-                <CheckBoxStyle
-                  checked={this.state.checked}
-                  onchange={this.handleCheckboxChange}
-                />
-              </InnerFlexDiv>
-              <Span>{msg}</Span>
-            </FlexDiv>
-          </Label>
-        </PaddingDiv>
-      </div>
+      <CheckBoxContainer>
+        <Input
+          type="checkbox"
+          id="checkbox"
+          onChange={e => {
+            this.handleCheckboxChange(e);
+          }}
+        />
+        <Label htmlfor="checkbox">{msg}</Label>
+      </CheckBoxContainer>
     );
   }
 }
