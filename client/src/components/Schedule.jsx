@@ -48,7 +48,6 @@ const Schedule = (props) => (
       <InnerFormDiv>
         <Padding>
           <CheckBox />
-          {/* <i class="far fa-check-square"></i>&nbsp;&nbsp;I want to talk about finaning */}
         </Padding>
       </InnerFormDiv>
       <InnerFormDiv>
