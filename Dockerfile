@@ -1,5 +1,5 @@
 FROM node:lts-alpine
-WORKDIR /app
+WORKDIR /app/scheduleATour
 COPY package.json ./
 RUN npm install
 COPY . ./
