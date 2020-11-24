@@ -64,7 +64,7 @@ const ChooseDateItem = (props) => (
       onClick={e => props.onclick(e)}
     >
       <NormalDiv>
-        {props.day.slice(0, 3)}
+        {props.day.split(' ')[0]}
       </NormalDiv>
       <DayDiv>
         {props.day.split(' ')[2]}

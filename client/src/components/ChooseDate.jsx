@@ -100,8 +100,7 @@ class ChooseDate extends React.Component {
       let add;
       currTime > 19 ? add = 1 : add = 0;
       let firstDay = new Date(curr.setDate(curr.getDate() + i + add));
-      const options = {weekday: 'short', day: 'numeric', month: 'short'};
-      week.push(firstDay.toLocaleString('default', options));
+      week.push(firstDay.toDateString());
     }
     return week;
   }
