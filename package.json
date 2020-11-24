@@ -6,12 +6,12 @@
   "author": "Namsoo Lee",
   "license": "ISC",
   "engines": {
-    "node": ">=6.13.0"
+    "node": ">=14.15.0"
   },
   "scripts": {
     "seed": "node seed.js",
-    "react-dev": "webpack -w",
-    "start": "nodemon server",
+    "build": "webpack",
+    "start": "node server/index.js",
     "test": "jest"
   },
   "dependencies": {
