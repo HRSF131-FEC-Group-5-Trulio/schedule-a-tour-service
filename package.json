@@ -6,13 +6,15 @@
   "author": "Namsoo Lee",
   "license": "ISC",
   "engines": {
-    "node": ">=6.13.0"
+    "node": ">=14.15.0"
   },
   "scripts": {
     "seed": "node seed.js",
-    "react-dev": "webpack -w",
-    "start": "nodemon server",
-    "test": "jest"
+    "dev": "nodemon server/index.js",
+    "build": "webpack",
+    "start": "node server/index.js",
+    "test": "jest",
+    "react-dev": "webpack -w"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -35,7 +37,6 @@
     "babel-preset-airbnb": "^5.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "faker": "^5.1.0",
     "jest": "^26.6.3",
     "jest-environment-enzyme": "^7.1.2",

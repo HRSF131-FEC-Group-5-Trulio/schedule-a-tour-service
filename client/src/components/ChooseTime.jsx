@@ -111,17 +111,26 @@ class ChooseTime extends React.Component {
     let add;
 
     const curr = new Date();
-    const currHour = curr.getHours();
-    currHour > 19 ? add = 1 : add = 0;
+    let currHour = curr.getHours();
+
+    if (currHour > 19 && currHour < 24) {
+      add = 1;
+      currHour = 6;
+    } else if (currHour > 0 && currHour < 6) {
+      add = 0;
+      currHour = 6;
+    } else {
+      add = 0;
+    }
 
     let firstDay = new Date(curr.setDate(curr.getDate() + add));
 
     const dateString = firstDay.toDateString();
     const date = new Date(dateString);
 
-    let futureHour = 9;
-    let i = 0;
+    let futureHour = currHour;
 
+    let i = 0;
     while (futureHour < 19) {
       const futureDate = new Date(date.getTime() + ((currHour + 3) * 60 * 60000) + (30 * 60000) * i);
 
@@ -133,7 +142,6 @@ class ChooseTime extends React.Component {
       };
       var timeString = amPm.toLocaleString('en-US', options);
       day.push(timeString);
-
       futureHour = futureDate.getHours();
       i++;
     }

@@ -1,28 +1,16 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
+const Property = require('./db/model');
+const db = require('./db/connection');
 
-mongoose.connect('mongodb://localhost/schedule', {useUnifiedTopology: true, useNewUrlParser: true});
-
-const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Welcome to MongoDB!');
 });
-// id = this.location.pathname.slice(-10) way to get id from url
-const propertySchema = new mongoose.Schema({
-  id: Number, //property id
-  scheduleATour: Array, //schedules belong to this property
-});
-
-const Property = mongoose.model('Property', propertySchema);
-
 
 const createProperty = (schedule) => {
   let property = {};
-
-  // array of sample property id
-  const idArr = [2083614416, 2083994500, 2084022308, 2083617535, 2084019872];
-  property.id = idArr[Math.floor(Math.random() * 5)];
+  property.id = Math.floor(Math.random() * 10);
   property.scheduleATour = [schedule];
   return property;
 };
@@ -32,11 +20,25 @@ const createSchedule = () => {
   schedule.name = faker.name.findName();
   schedule.phoneNumber = faker.phone.phoneNumber();
   schedule.email = faker.internet.email();
-  const date = new Date();
+
+  const curr = new Date();
+  const randomWeekDay = Math.floor(Math.random() * 6);
+  const date = new Date(curr.setDate(curr.getDate() + randomWeekDay));
   schedule.date = date.toDateString();
-  schedule.time = date.toTimeString();
-  schedule.inPerson = Math.floor(Math.random() * 2);
-  schedule.financing = Math.floor(Math.random() * 2);
+
+  const randHour = ['09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19'][Math.floor(Math.random() * 11)];
+
+  let randHalfHour = '';
+  if (randHour === '19') {
+    randHalfHour = '00';
+  } else {
+    randHalfHour = ['00', '30'][Math.floor(Math.random() * 2)];
+  }
+
+  schedule.time = `${randHour}:${randHalfHour}:00`;
+  const boolean = [true, false];
+  schedule.inPerson = boolean[Math.floor(Math.random() * 2)];
+  schedule.financing = boolean[Math.floor(Math.random() * 2)];
   return schedule;
 };
 
@@ -72,6 +74,7 @@ const seedData = (entries) => {
   });
 };
 
-seedData(10)
+seedData(30)
   .then(() => { console.log('Wasn\'t that easy'); })
-  .catch(() => { console.log('Misdirect the student\'s quickly'); });
+  .catch(() => { console.log('Misdirect the student\'s quickly'); })
+  .then(() => { db.close(); });
