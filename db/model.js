@@ -22,8 +22,6 @@ const insertOne = (tour, callback) => {
   Property.create(tour, callback);
 }
 
-
-
 module.exports = {
   findOneById,
   insertOne
