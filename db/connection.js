@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Property = require('./model');
 
-mongoose.connect('mongodb://localhost/schedule', {useUnifiedTopology: true, useNewUrlParser: true});
+mongoose.connect('mongodb://database/schedule', {useUnifiedTopology: true, useNewUrlParser: true});
 
 const db = mongoose.connection;
 

@@ -5,7 +5,6 @@ import Tab from './Tab';
 import Schedule from './Schedule';
 import Request from './Request';
 
-
 const OneThird = styled.div`
   border-style: solid;
   border-color: transparent;
@@ -43,7 +42,7 @@ class App extends React.Component {
     const currentTab = this.state.currentTab;
     let tab;
     const now = new Date();
-    
+
     if ( currentTab === 'schedule' ) {
       tab = <Schedule time={now}/>;
     } else if ( currentTab === 'request' ) {
