@@ -23,19 +23,19 @@ app.get('/api/listings/:id', (req, res) => {
   });
 });
 
-app.post('/api/listings/:id', (req, res) => {
-  console.log(`GET /api/listings/${req.params.id}`);
-  Property.insertOne(req.params.id, (err, docs) => {
-        if (err) {
-          console.log(`Error: failed to find document with listing_id = ${req.params.id}`);
-          res.sendStatus(404);
-        } else {
-          console.log("Successful response...");
-          res.json(docs.scheduleATour);
-        }
-  });
-});
+// app.post('/api/listings/:id', (req, res) => {
+//   console.log(`GET /api/listings/${req.params.id}`);
+//   Property.insertOne(req.params.id, (err, docs) => {
+//         if (err) {
+//           console.log(`Error: failed to find document with listing_id = ${req.params.id}`);
+//           res.sendStatus(404);
+//         } else {
+//           console.log("Successful response...");
+//           res.json(docs.scheduleATour);
+//         }
+//   });
+// });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`listening at http://localhost:${port}`);
 });
