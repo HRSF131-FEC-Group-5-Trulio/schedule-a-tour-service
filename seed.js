@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
-const Property = require('./db/model');
-const db = require('./db/connection');
+const db = require('./db/model');
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.connectDb.on('error', console.error.bind(console, 'connection error:'));
+db.connectDb.once('open', function() {
   console.log('Welcome to MongoDB!');
 });
 
@@ -64,7 +63,7 @@ const seedData = (entries) => {
   }
 
   return new Promise((resolve, reject) => {
-    Property.insertMany(properties, (err, data) => {
+    db.insertMany(properties, (err, data) => {
       if (err) {
         reject(err);
       } else {
@@ -76,5 +75,5 @@ const seedData = (entries) => {
 
 seedData(30)
   .then(() => { console.log('Wasn\'t that easy'); })
-  .catch(() => { console.log('Misdirect the student\'s quickly'); })
-  .then(() => { db.close(); });
+  .catch((err) => { console.log('Misdirect the student\'s quickly', err); })
+  .then(() => { db.connectDb.close(); });

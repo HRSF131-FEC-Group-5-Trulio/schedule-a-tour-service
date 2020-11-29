@@ -52,7 +52,7 @@ const PartitionFull = styled(Partition)`
   width: 100%;
 `;
 
-class Input extends React.Component {
+class PersonalInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,17 +65,17 @@ class Input extends React.Component {
       <div>
         <Partition>
           <Padding>
-            <InputDiv placeholder='namsoo lee'></InputDiv>
+            <InputDiv type="text" placeholder="namsoo lee" />
           </Padding>
         </Partition>
         <PartitionPhone>
           <Padding>
-            <InputDiv placeholder='(111) 222-333'></InputDiv>
+            <InputDiv type="text" placeholder="(111) 222-333" />
           </Padding>
         </PartitionPhone>
         <PartitionFull>
           <Padding>
-            <InputDiv placeholder='hrsf-fec@gmail.com'></InputDiv>
+            <InputDiv type="text" placeholder="hrsf-fec@gmail.com" />
           </Padding>
         </PartitionFull>
       </div>
@@ -83,4 +83,4 @@ class Input extends React.Component {
   }
 }
 
-export default Input;
+export default PersonalInput;

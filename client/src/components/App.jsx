@@ -8,6 +8,7 @@ import Request from './Request';
 const OneThird = styled.div`
   border-style: solid;
   border-color: transparent;
+  min-width: 310px;
   width: 33%;
   box-sizing: border-box;
   display: block;
@@ -17,8 +18,8 @@ const OneThird = styled.div`
 
 const TabContainer = styled.div`
   box-shadow: rgba(59, 65, 68, 0.18) 0px 17px 21px -1px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: ${props => props.tab === "schedule" ? "0px" : "8px"};
+  border-top-right-radius: ${props => props.tab === "schedule" ? "8px" : "0px"};
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 
@@ -35,25 +36,32 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentTab: 'schedule',
+      // schedule: [],
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(tab) {
+    this.setState({ currentTab: tab });
   }
 
   render() {
-    const currentTab = this.state.currentTab;
+    const { currentTab } = this.state;
     let tab;
     const now = new Date();
 
-    if ( currentTab === 'schedule' ) {
-      tab = <Schedule time={now}/>;
-    } else if ( currentTab === 'request' ) {
-      tab = <Request />;
+    if (currentTab === 'schedule') {
+      tab = <Schedule name="schedule" time={now} />;
+    } else if (currentTab === 'request') {
+      tab = <Request name="request" />;
     }
+
     return (
       <OneThird>
         <div>
-          <Tab />
+          <Tab tabSelection={this.handleClick} />
         </div>
-        <TabContainer>
+        <TabContainer tab={this.state.currentTab}>
           {tab}
         </TabContainer>
       </OneThird>

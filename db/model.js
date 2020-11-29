@@ -1,4 +1,14 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
+// mongoose.connect('mongodb://172.17.0.4:27017/schedule', {useUnifiedTopology: true, useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/schedule', {useUnifiedTopology: true, useNewUrlParser: true});
+
+const connectDb = mongoose.connection;
+
+connectDb.on('error', console.error.bind(console, 'connection error:'));
+connectDb.once('open', function() {
+  console.log('Welcome to MongoDB!');
+});
 
 const propertySchema = new mongoose.Schema({
   id: Number, //property id
@@ -22,7 +32,14 @@ const insertOne = (tour, callback) => {
   Property.create(tour, callback);
 }
 
+const insertMany = (tour, callback) => {
+  Property.insertMany(tour, callback);
+}
+
 module.exports = {
+  connectDb,
+  findAll,
   findOneById,
-  insertOne
+  insertOne,
+  insertMany,
 };
