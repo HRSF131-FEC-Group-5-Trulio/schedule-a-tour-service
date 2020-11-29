@@ -53,7 +53,7 @@ class TourType extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked: 'left',
+
     };
   }
 
@@ -61,7 +61,10 @@ class TourType extends React.Component {
     return (
       <div>
         <InnerFormDiv>
-          <Label>Tour Type&nbsp;&nbsp;<i className="far fa-question-circle"></i></Label>
+          <Label>
+            Tour Type&nbsp;&nbsp;
+            <i className="far fa-question-circle" />
+          </Label>
         </InnerFormDiv>
         <InnerFormDiv>
           <LeftButton>In-Person</LeftButton>
