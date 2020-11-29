@@ -149,7 +149,6 @@ class ChooseTime extends React.Component {
   }
 
   render() {
-
     const timesOfDay = this.makeTimesOfDay();
     const initialTime = this.state.time;
 

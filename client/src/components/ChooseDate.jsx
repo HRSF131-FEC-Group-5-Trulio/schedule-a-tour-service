@@ -24,16 +24,16 @@ const InnerFormDiv = styled.div`
 
 const RightArrowDiv = styled.div`
   position: absolute;
-  left: 29%;
-  top: 37%;
+  left: 272px;
+  top: 186px;
   visibility: ${props => props.left === true ? null : 'hidden'};
 `;
 
 const LeftArrowDiv = styled.div`
   position: absolute;
   z-index: 1;
-  left: 0.8%;
-  top: 37%;
+  left: 6px;
+  top: 186px;
   visibility: ${props => props.left === true ? 'hidden' : null};
 `;
 
@@ -52,6 +52,11 @@ const Button = styled.button`
   border: 1px solid rgb(232, 233, 234);
   background-color: rgb(255, 255, 255);
   outline: none;
+
+  &:hover {
+    border-color: rgb(255, 255, 255);
+    box-shadow: rgb(240, 240, 240) 0px 0px 10px 3px;
+  }
 `;
 
 const Position = styled.div`
@@ -71,8 +76,8 @@ class ChooseDate extends React.Component {
     super(props);
     this.state = {
       left: true,
-      week: null,
-      date: "",
+      date: null,
+      id: null,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleDate = this.handleDate.bind(this);
@@ -89,7 +94,8 @@ class ChooseDate extends React.Component {
   }
 
   handleDate(e) {
-    this.setState({date: e.target.value});
+    this.setState({ date: e.target.value });
+    this.setState({ id: e.target.id });
   }
 
   makeDaysOfWeek() {
