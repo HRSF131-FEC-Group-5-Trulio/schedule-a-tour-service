@@ -24,17 +24,20 @@ const InnerFormDiv = styled.div`
 
 const RightArrowDiv = styled.div`
   position: absolute;
-  left: 272px;
-  top: 186px;
+  right: 0px;
+  top: 30%;
   visibility: ${props => props.left === true ? null : 'hidden'};
+  margin-right: -16px;
+  z-index: 5;
 `;
 
 const LeftArrowDiv = styled.div`
   position: absolute;
   z-index: 1;
-  left: 6px;
-  top: 186px;
+  left: 0px;
+  top: 30%;
   visibility: ${props => props.left === true ? 'hidden' : null};
+  margin-left: -16px;
 `;
 
 const Button = styled.button`
@@ -71,17 +74,24 @@ const Padding = styled.div`
   margin: -4px;
 `;
 
+const TestDiv = styled.div`
+  position: relative;
+`;
+
 class ChooseDate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       left: true,
-      date: null,
-      id: null,
+      selectedDate: '',
+      selectedId: null,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleDate = this.handleDate.bind(this);
+    this.handleSelected = this.handleSelected.bind(this);
     this.makeDaysOfWeek = this.makeDaysOfWeek.bind(this);
+    this.scrollToRight = this.scrollToRight.bind(this);
+    this.scrollToLeft = this.scrollToLeft.bind(this);
   }
 
   handleClick(e) {
@@ -94,8 +104,14 @@ class ChooseDate extends React.Component {
   }
 
   handleDate(e) {
-    this.setState({ date: e.target.value });
-    this.setState({ id: e.target.id });
+    const selectedDate = e.target.value;
+    this.setState({ selectedDate });
+  }
+
+  handleSelected(e) {
+    const selectedId = e.target.id;
+    this.setState({ selectedId });
+    this.props.selectedId(selectedId);
   }
 
   makeDaysOfWeek() {
@@ -104,60 +120,73 @@ class ChooseDate extends React.Component {
       let curr = new Date(); //'2021-01-02T00:00:00'
       let currTime = curr.getHours();
       let add;
-      currTime > 19 ? add = 1 : add = 0;
+      currTime > 16 ? add = 1 : add = 0;
       let firstDay = new Date(curr.setDate(curr.getDate() + i + add));
       week.push(firstDay.toDateString());
     }
     return week;
   }
 
+  scrollToRight() {
+    document.getElementById('container').scrollLeft -= 300;
+  }
+
+  scrollToLeft() {
+    document.getElementById('container').scrollLeft += 300;
+  }
+
   render() {
     const daysOfWeek = this.makeDaysOfWeek();
+
+    const { left } = this.state;
+
     return (
-      <div>
+      <TestDiv>
         <Position>
           <Padding>
-            <InnerFormDiv id="container" left={this.state.left}>
+            <InnerFormDiv id="container" left={left} onClick={this.handleSelected}>
               {
-                daysOfWeek.map((day, i) => {
-                  return (
+                daysOfWeek.map((day, i) =>
+                  (
                     <ChooseDateItem
                       day={day}
                       key={day}
                       id={i}
                       onclick={this.handleDate}
+                      selected={this.state.selectedId}
                     />
-                  );
-                })
+                  )
+                )
               }
             </InnerFormDiv>
           </Padding>
+          <LeftArrowDiv left={left}>
+            <Button
+              id="leftArrow"
+              type="button"
+              onClick={(e) => {
+                this.handleClick(e);
+                this.scrollToRight();
+              }}
+            >
+              <i className="fas fa-angle-left" />
+            </Button>
+          </LeftArrowDiv>
+          <RightArrowDiv left={left}>
+            <Button
+              id="rightArrow"
+              type="button"
+              onClick={(e) => {
+                this.handleClick(e);
+                this.scrollToLeft();
+              }}
+            >
+              <i className="fas fa-angle-right" />
+            </Button>
+          </RightArrowDiv>
         </Position>
-        <LeftArrowDiv left={this.state.left}>
-          <Button
-            id="leftArrow"
-            type="button"
-            onClick={(e) => {
-              this.handleClick(e);
-              document.getElementById('container').scrollLeft -= 300;
-            }}
-          >
-            <i className="fas fa-angle-left" />
-          </Button>
-        </LeftArrowDiv>
-        <RightArrowDiv left={this.state.left}>
-          <Button
-            id="rightArrow"
-            type="button"
-            onClick={(e) => {
-              this.handleClick(e);
-              document.getElementById('container').scrollLeft += 300;
-            }}
-          >
-            <i className="fas fa-angle-right" />
-          </Button>
-        </RightArrowDiv>
-      </div>
+
+      </TestDiv>
     );
   }
 }

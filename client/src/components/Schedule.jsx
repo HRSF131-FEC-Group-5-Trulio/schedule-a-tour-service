@@ -100,59 +100,81 @@ const Ahref = styled.a`
   }
 `;
 
-const Schedule = (props) => (
-  <ScehduleDiv>
-    <form>
-      <InnerFormDiv>
-        <Padding>
-          <TourType />
-        </Padding>
-        <Padding>
-          <ChooseDate time={props.time} />
-          <ChooseTime time={props.time} />
-        </Padding>
-        <PersonalInput />
-      </InnerFormDiv>
-      <InnerFormDiv>
-        <Padding>
-          <CheckBox />
-        </Padding>
-      </InnerFormDiv>
-      <InnerFormDiv>
-        <Padding>
-          <SubmitButton type="button">Schedule a Tour</SubmitButton>
-        </Padding>
-      </InnerFormDiv>
-      <InnerFormDiv>
-        <Padding>
-          <HealthDiv>
-            <i className="fas fa-exclamation-triangle" />
-            &nbsp;&nbsp;
-            Public Health Advisory
-          </HealthDiv>
-        </Padding>
-      </InnerFormDiv>
-      <InnerFormDiv>
-        <Padding>
-          <TermsDiv>
-            By pressing Schedule A Tour, you agree that Trulia and real estate
-            professionals may contact you via phone/text about your inquiry, which may
-            involve the use of automated means. You are not required to consent as a
-            condition of purchasing any property, goods or services. Message/data rates
-            may apply. You also agree to our
-            &nbsp;
-            <Ahref target="blank" href="https://www.trulia.com/terms">Terms of Use</Ahref>
-            &nbsp;
-            Trulia does not endorse any&nbsp;
-            <span>
-              <Ahref target="blank" href="https://www.trulia.com/terms">real estate professionals</Ahref>
-            </span>
-            &nbsp;
-          </TermsDiv>
-        </Padding>
-      </InnerFormDiv>
-    </form>
-  </ScehduleDiv>
-);
+class Schedule extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedId: null,
+    };
+    this.handleSelectedId = this.handleSelectedId.bind(this);
+  }
+
+  handleSelectedId(selectedId) {
+    this.setState({ selectedId });
+  }
+
+  render() {
+    const { time } = this.props;
+    const { selectedId } = this.props;
+
+    return (
+      <ScehduleDiv>
+        <form>
+          <InnerFormDiv>
+            <Padding>
+              <TourType />
+            </Padding>
+            <Padding>
+              <ChooseDate
+                time={time}
+                selectedId={this.handleSelectedId}
+              />
+              <ChooseTime time={time} schedule={this.props.schedule} selectedId={this.state.selectedId} />
+            </Padding>
+            <PersonalInput />
+          </InnerFormDiv>
+          <InnerFormDiv>
+            <Padding>
+              <CheckBox />
+            </Padding>
+          </InnerFormDiv>
+          <InnerFormDiv>
+            <Padding>
+              <SubmitButton type="button">Schedule a Tour</SubmitButton>
+            </Padding>
+          </InnerFormDiv>
+          <InnerFormDiv>
+            <Padding>
+              <HealthDiv>
+                <i className="fas fa-exclamation-triangle" />
+                &nbsp;&nbsp;
+                Public Health Advisory
+              </HealthDiv>
+            </Padding>
+          </InnerFormDiv>
+          <InnerFormDiv>
+            <Padding>
+              <TermsDiv>
+                By pressing Schedule A Tour, you agree that Trulia and real estate
+                professionals may contact you via phone/text about your inquiry, which may
+                involve the use of automated means. You are not required to consent as a
+                condition of purchasing any property, goods or services. Message/data rates
+                may apply. You also agree to our
+                &nbsp;
+                <Ahref target="blank" href="https://www.trulia.com/terms">Terms of Use</Ahref>
+                &nbsp;
+                Trulia does not endorse any&nbsp;
+                <span>
+                  <Ahref target="blank" href="https://www.trulia.com/terms">real estate professionals</Ahref>
+                </span>
+                &nbsp;
+              </TermsDiv>
+            </Padding>
+          </InnerFormDiv>
+        </form>
+      </ScehduleDiv>
+    );
+  }
+}
 
 export default Schedule;
