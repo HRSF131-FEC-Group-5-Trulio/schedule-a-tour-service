@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 // mongoose.connect('mongodb://172.17.0.4:27017/schedule', {useUnifiedTopology: true, useNewUrlParser: true});
-mongoose.connect('mongodb://localhost:27017/schedule', {useUnifiedTopology: true, useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/schedule', { useUnifiedTopology: true, useNewUrlParser: true });
 
 const connectDb = mongoose.connection;
 
 connectDb.on('error', console.error.bind(console, 'connection error:'));
-connectDb.once('open', function() {
+connectDb.once('open', () => {
   console.log('Welcome to MongoDB!');
 });
 

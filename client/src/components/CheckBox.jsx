@@ -46,20 +46,17 @@ class CheckBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: false
+      checked: false,
     };
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
   }
 
   handleCheckboxChange(event) {
-    this.setState({
-      checked: event.target.checked
-    });
+    this.setState({ checked: event.target.checked });
     console.log(this.state.checked);
   }
 
   render() {
-
     let msg = '';
     if (this.state.checked === false) {
       msg = 'I want to talk about financing';
@@ -72,7 +69,7 @@ class CheckBox extends React.Component {
         <Input
           type="checkbox"
           id="checkbox"
-          onChange={e => {
+          onChange={(e) => {
             this.handleCheckboxChange(e);
           }}
         />

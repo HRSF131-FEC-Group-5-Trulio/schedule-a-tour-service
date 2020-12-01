@@ -99,11 +99,12 @@ class ChooseTime extends React.Component {
       time: null,
     };
     this.handleSelect = this.handleSelect.bind(this);
+    this.makeTimesOfDay = this.makeTimesOfDay.bind(this);
   }
 
   handleSelect(e) {
     console.log(e.target.value);
-    this.setState({time: e.target.value});
+    this.setState({ time: e.target.value });
   }
 
   makeTimesOfDay() {
@@ -113,7 +114,7 @@ class ChooseTime extends React.Component {
     const curr = new Date();
     let currHour = curr.getHours();
 
-    if (currHour > 19 && currHour < 24) {
+    if (currHour > 16 && currHour < 24) {
       add = 1;
       currHour = 6;
     } else if (currHour > 0 && currHour < 6) {
@@ -149,7 +150,6 @@ class ChooseTime extends React.Component {
   }
 
   render() {
-
     const timesOfDay = this.makeTimesOfDay();
     const initialTime = this.state.time;
 
@@ -161,14 +161,11 @@ class ChooseTime extends React.Component {
               { initialTime === null ? 'Choose a time' : initialTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) }
             </AlignDiv>
             <div>
-              <i className="fas fa-angle-down"></i>
+              <i className="fas fa-angle-down" />
             </div>
-            <Select onChange={e => this.handleSelect(e)}>
+            <Select onChange={(e) => this.handleSelect(e)}>
               {
-                timesOfDay.map((time, i) => <ChooseTimeItem
-                  key={i}
-                  time={time}
-                />)
+                timesOfDay.map((time, i) => <ChooseTimeItem key={i} time={time} />)
               }
             </Select>
           </InnerSelectDiv>

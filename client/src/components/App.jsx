@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Tab from './Tab';
 import Schedule from './Schedule';
@@ -8,8 +9,8 @@ import Request from './Request';
 const OneThird = styled.div`
   border-style: solid;
   border-color: transparent;
-  min-width: 310px;
-  width: 33%;
+  width: 310px;
+
   box-sizing: border-box;
   display: block;
   outline: none;
@@ -36,22 +37,36 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentTab: 'schedule',
-      // schedule: [],
+      schedule: [],
     };
     this.handleClick = this.handleClick.bind(this);
+    this.getProperty = this.getProperty.bind(this);
+  }
+
+  componentDidMount() {
+    this.getProperty(this.props.id);
   }
 
   handleClick(tab) {
     this.setState({ currentTab: tab });
   }
 
+  getProperty(id) {
+    axios.get(`/api/ScheduleTour/${id}`)
+      .then((listings) => {
+        this.setState({schedule: listings.data});
+      })
+      .catch((err) => console.log(err));
+  }
+
   render() {
     const { currentTab } = this.state;
+    const { schedule } = this.state;
     let tab;
     const now = new Date();
 
     if (currentTab === 'schedule') {
-      tab = <Schedule name="schedule" time={now} />;
+      tab = <Schedule name="schedule" time={now} schedule={schedule} />;
     } else if (currentTab === 'request') {
       tab = <Request name="request" />;
     }
@@ -61,7 +76,7 @@ class App extends React.Component {
         <div>
           <Tab tabSelection={this.handleClick} />
         </div>
-        <TabContainer tab={this.state.currentTab}>
+        <TabContainer tab={currentTab}>
           {tab}
         </TabContainer>
       </OneThird>

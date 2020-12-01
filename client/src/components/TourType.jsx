@@ -28,21 +28,31 @@ const Button = styled.div`
 `;
 
 const LeftButton = styled(Button)`
- border-top-right-radius: 0px;
- border-bottom-right-radius: 0px;
- color: rgb(255, 255, 255);
- background-color: rgb(0, 120, 130);
- border-color: transparent;
- border-right: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  color: ${props => props.current === "inPerson" ? "rgb(255, 255, 255)" : "rgb(59, 65, 68)"};
+  background-color: ${props => props.current === "inPerson" ? "rgb(0, 120, 130)" : "rgb(255, 255, 255)"};
+  border-color: ${props => props.current === "inPerson" ? "transparent" : "rgb(205, 209, 212)"};
+  border-right: 0px;
+
+  &:hover {
+    background-color: ${props => props.current === "inPerson" ? "rgb(0, 120, 130)" : "rgb(240, 240, 240)"};
+    transition: background-color 0.5s ease 0s;
+  }
 `;
 
 const RightButton = styled(Button)`
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
-  color: rgb(59, 65, 68);
-  background-color: rgb(255, 255, 255);
-  border-color: rgb(205, 209, 212);
+  color: ${props => props.current === "videoChat" ? "rgb(255, 255, 255)" : "rgb(59, 65, 68)"};
+  background-color: ${props => props.current === "videoChat" ? "rgb(0, 120, 130)" : "rgb(255, 255, 255)"};
+  border-color: ${props => props.current === "videoChat" ? "transparent" : "rgb(205, 209, 212)"};
   border-left-color: transparent;
+
+  &:hover {
+    background-color: ${props => props.current === "videoChat" ? "rgb(0, 120, 130)" : "rgb(240, 240, 240)"};
+    transition: background-color 0.5s ease 0s;
+  }
 `;
 
 const Label = styled.label`
@@ -53,8 +63,14 @@ class TourType extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      tourType: 'inPerson',
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    const tourType = e.target.id;
+    this.setState({ tourType });
   }
 
   render() {
@@ -67,8 +83,8 @@ class TourType extends React.Component {
           </Label>
         </InnerFormDiv>
         <InnerFormDiv>
-          <LeftButton>In-Person</LeftButton>
-          <RightButton>Video Chat</RightButton>
+          <LeftButton id="inPerson" current={this.state.tourType} onClick={this.handleClick}>In-Person</LeftButton>
+          <RightButton id="videoChat" current={this.state.tourType} onClick={this.handleClick}>Video Chat</RightButton>
         </InnerFormDiv>
       </div>
     );

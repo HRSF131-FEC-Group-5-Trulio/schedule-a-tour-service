@@ -34,7 +34,7 @@ const ItemButton = styled.button`
   color: rgb(59, 65, 68);
   background-color: rgb(255, 255, 255);
   border: 2px solid transparent;
-  box-shadow: ${props => props.clicked ? 'rgb(0, 173, 187) 0px 0px 0px 2px' : 'rgb(205, 209, 212) 0px 0px 0px 1px;' };
+  box-shadow: ${props => props.id.toString() === props.selected ? 'rgb(0, 173, 187) 0px 0px 0px 2px' : 'rgb(205, 209, 212) 0px 0px 0px 1px;'};
   outline: none;
 
    &:hover {
@@ -55,25 +55,36 @@ const NormalDiv = styled.div`
   pointer-events:none;
 `;
 
-const ChooseDateItem = (props) => (
-  <ItemDiv>
-    <ItemButton
-      type="button"
-      value={props.day}
-      id={props.id}
-      onClick={e => props.onclick(e)}
-    >
-      <NormalDiv>
-        {props.day.split(' ')[0]}
-      </NormalDiv>
-      <DayDiv>
-        {props.day.split(' ')[2]}
-      </DayDiv>
-      <NormalDiv>
-        {props.day.split(' ')[1]}
-      </NormalDiv>
-    </ItemButton>
-  </ItemDiv>
-);
+class ChooseDateItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    return (
+      <ItemDiv>
+        <ItemButton
+          type="button"
+          value={this.props.day}
+          id={this.props.id}
+          selected={this.props.selected}
+          onClick={this.props.onclick}
+        >
+          <NormalDiv>
+            {this.props.day.split(' ')[0]}
+          </NormalDiv>
+          <DayDiv>
+            {this.props.day.split(' ')[2]}
+          </DayDiv>
+          <NormalDiv>
+            {this.props.day.split(' ')[1]}
+          </NormalDiv>
+        </ItemButton>
+      </ItemDiv>
+    );
+  }
+}
 
 export default ChooseDateItem;
