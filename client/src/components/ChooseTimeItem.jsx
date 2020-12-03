@@ -45,16 +45,16 @@ const Option = styled.option`
   padding: 0px 2px 1px;
 `;
 
-class ChooseTimeItem extends React.PureComponent {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
+class ChooseTimeItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
 
-  //   };
-  // }
+    };
+  }
 
   render() {
-    const { time } = this.context;
+    const time = this.props.time;
     return (
       <Option value={time}>{time}</Option>
       // <Option value={props.time}>{props.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</Option>

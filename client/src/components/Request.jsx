@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
 import RequestInput from './RequestInput';
 import CheckBox from './CheckBox';
 
@@ -82,6 +83,14 @@ const Ahref = styled.a`
   }
 `;
 
+const Tooltip = styled.div`
+  border-radius: 8px;
+  box-shadow: rgba(134, 144, 153, 0.18) 0px 8px 16px 0px, rgba(59, 65, 68, 0.05) 0px 2px 4px 0px;
+  padding: 16px;
+  font-family: TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif;
+  font-size: 10px
+`;
+
 const Request = () => (
   <RequestDiv>
     <form>
@@ -109,7 +118,19 @@ const Request = () => (
             &nbsp;
             Trulia does not endorse any&nbsp;
             <span>
-              <Ahref target="blank" href="https://www.trulia.com/terms">real estate professionals</Ahref>
+              <Ahref target="blank" href="https://www.trulia.com/terms" data-tip data-for="terms">real estate professionals</Ahref>
+              <ReactTooltip
+                id="terms"
+                effect="solid"
+                textColor="rgb(59, 65, 68)"
+                backgroundColor="rgb(255, 255, 255)"
+              >
+                <Tooltip>
+                  <p>Real estate professionals include the real estate agents and brokers, mortgage</p>
+                  <p>mortgage lenders and loan officers, property managers, and other</p>
+                  <p>professionals you interact with through Trulia.</p>
+                </Tooltip>
+              </ReactTooltip>
             </span>
             &nbsp;
           </TermsDiv>

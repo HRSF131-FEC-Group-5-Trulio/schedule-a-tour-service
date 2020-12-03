@@ -1,44 +1,76 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-const CheckBoxContainer = styled.div`
+const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
+  margin-top: -4px;
+  margin-bottom: -6px;
 `;
 
-const Input = styled.div`
-  cursor: pointer;
-  opacity: 0;
-  position: absolute;
+// const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
+//   border: 0;
+//   clip: rect(0 0 0 0);
+//   clip-path: inset(50%);
+//   height: 1px;
+//   margin: -1px;
+//   overflow: hidden;
+//   padding: 0;
+//   position: absolute;
+//   white-space: nowrap;
+//   width: 1px;
+// `;
 
-  &:checked + Label::before {
-    content: '';
-    background-color: rgb(0, 120, 130);
-    box-shadow: rgb(0, 120, 130) 0px 0px 2px;
-    transition: background-color 0.2s, box-shadow 0.3s;
-  }
-`;
+// const StyledCheckbox = styled.div`
+//   display: inline-block;
+//   width: 16px;
+//   height: 16px;
+//   background: ${(props) => (props.checked ? 'salmon' : 'papayawhip')}
+//   border-radius: 3px;
+//   transition: all 150ms;
+//   cursor: pointer;
 
-const Label = styled.div`
+//   ${HiddenCheckbox}:focus + & {
+//     box-shadow: 0 0 0 3px pink;
+//   }
+
+//   ${Icon} {
+//     visibility: ${(props) => (props.checked ? 'visible' : 'hidden')}
+//   }
+// `;
+
+const Label = styled.label`
   cursor: pointer;
   display: flex;
   color: rgb(134, 144, 153);
   font-size: 12px;
   font-family: TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif;
+  margin-top: 3px;
 
   &::before {
     content: '';
-    height: 14px;
-    width: 14px;
-    border-radius: 3px;
-    margin-right: .5em;
-    border: .05em solid lightgrey;
+    height: 11px;
+    width: 11px;
+    border-radius: 2px;
+    margin-right: 10px;
+    border: 1px solid white;
   }
 
   &:hover::before {
-    border: 1px solid black;
-    box-shadow: black 0px 0px 2px;
-    transition: border-color 0.2s, box-shadow 0.3s;
+    border: 1px solid transparent;
+    box-shadow: black 0px 0px 2px 0.7px;
+    transition: border-color 0.2s, box-shadow 0.1s;
+  }
+`;
+
+const Input = styled.input`
+  position: absolute;
+  padding: 0;
+  white-space: nowrap;
+  margin-top: 5px;
+  margin-left: 0px;
+  &:checked + Label:before {
+    box-shadow: none;
   }
 `;
 
@@ -51,30 +83,28 @@ class CheckBox extends React.Component {
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
   }
 
-  handleCheckboxChange(event) {
-    this.setState({ checked: event.target.checked });
-    console.log(this.state.checked);
+  handleCheckboxChange(e) {
+    const checked = e.target.checked;
+    this.setState({ checked });
   }
 
   render() {
     let msg = '';
-    if (this.state.checked === false) {
+    const { checked } = this.state;
+    if (checked === false) {
       msg = 'I want to talk about financing';
     } else {
       msg = 'A licensed lender will call you soon';
     }
-
     return (
-      <CheckBoxContainer>
+      <CheckboxContainer>
         <Input
+          id="input"
           type="checkbox"
-          id="checkbox"
-          onChange={(e) => {
-            this.handleCheckboxChange(e);
-          }}
+          onChange={this.handleCheckboxChange}
         />
-        <Label htmlfor="checkbox">{msg}</Label>
-      </CheckBoxContainer>
+        <Label htmlFor="input">{msg}</Label>
+      </CheckboxContainer>
     );
   }
 }

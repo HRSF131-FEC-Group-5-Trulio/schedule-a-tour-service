@@ -1,5 +1,8 @@
+/* eslint no-console: ["error", { allow: ["log", "error"] }] */
 import React from 'react';
 import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
+
 import TourType from './TourType';
 import ChooseDate from './ChooseDate';
 import ChooseTime from './ChooseTime';
@@ -50,12 +53,17 @@ const SubmitButton = styled.button`
   -webkit-box-flex: 0;
   flex: 0 0 auto;
   display: block;
+
+  &:hover {
+    background-color: transparent;
+    border-color: rgb(217, 60, 35);
+    color: rgb(217, 60, 35);
+  }
 `;
 
 const HealthDiv = styled.div`
   margin: 0 0 0 8;
   outline: none;
-  display: inline-block;
   color: rgb(0, 120, 130);
   font-family: TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif;
   font-size: 16px;
@@ -100,6 +108,18 @@ const Ahref = styled.a`
   }
 `;
 
+const Tooltip = styled.div`
+  border-radius: 8px;
+  box-shadow: rgba(134, 144, 153, 0.18) 0px 8px 16px 0px, rgba(59, 65, 68, 0.05) 0px 2px 4px 0px;
+  padding: 16px;
+  font-family: TruliaSans, system, -apple-system, Roboto, "Segoe UI Bold", Arial, sans-serif;
+  font-size: 10px
+`;
+
+const TooltipPublic = styled(Tooltip)`
+  font-size: 16px
+`;
+
 class Schedule extends React.Component {
   constructor(props) {
     super(props);
@@ -115,7 +135,8 @@ class Schedule extends React.Component {
 
   render() {
     const { time } = this.props;
-    const { selectedId } = this.props;
+    const { schedule } = this.props;
+    const { selectedId } = this.state;
 
     return (
       <ScehduleDiv>
@@ -129,7 +150,7 @@ class Schedule extends React.Component {
                 time={time}
                 selectedId={this.handleSelectedId}
               />
-              <ChooseTime time={time} schedule={this.props.schedule} selectedId={this.state.selectedId} />
+              <ChooseTime time={time} schedule={schedule} selectedId={selectedId} />
             </Padding>
             <PersonalInput />
           </InnerFormDiv>
@@ -145,11 +166,23 @@ class Schedule extends React.Component {
           </InnerFormDiv>
           <InnerFormDiv>
             <Padding>
-              <HealthDiv>
+              <HealthDiv data-tip data-for="registerTip">
                 <i className="fas fa-exclamation-triangle" />
                 &nbsp;&nbsp;
                 Public Health Advisory
               </HealthDiv>
+              <ReactTooltip
+                id="registerTip"
+                effect="solid"
+                textColor="rgb(59, 65, 68)"
+                backgroundColor="rgb(255, 255, 255)"
+              >
+                <TooltipPublic>
+                  <p>In-person tours may not currently allow for safe</p>
+                  <p>social distancing or comply with public health</p>
+                  <p>orders.</p>
+                </TooltipPublic>
+              </ReactTooltip>
             </Padding>
           </InnerFormDiv>
           <InnerFormDiv>
@@ -165,7 +198,19 @@ class Schedule extends React.Component {
                 &nbsp;
                 Trulia does not endorse any&nbsp;
                 <span>
-                  <Ahref target="blank" href="https://www.trulia.com/terms">real estate professionals</Ahref>
+                  <Ahref target="blank" href="https://www.trulia.com/terms" data-tip data-for="terms">real estate professionals</Ahref>
+                  <ReactTooltip
+                    id="terms"
+                    effect="solid"
+                    textColor="rgb(59, 65, 68)"
+                    backgroundColor="rgb(255, 255, 255)"
+                  >
+                    <Tooltip>
+                      <p>Real estate professionals include the real estate agents and brokers, mortgage</p>
+                      <p>mortgage lenders and loan officers, property managers, and other</p>
+                      <p>professionals you interact with through Trulia.</p>
+                    </Tooltip>
+                  </ReactTooltip>
                 </span>
                 &nbsp;
               </TermsDiv>
