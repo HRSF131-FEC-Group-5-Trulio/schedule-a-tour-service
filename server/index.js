@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["log", "error"] }] */
 const express = require('express');
 const path = require('path');
 const parser = require('body-parser');
@@ -13,13 +14,13 @@ app.use(parser.json());
 app.get('/api/ScheduleTour/:id', (req, res) => {
   console.log(`GET /api/ScheduleTour/${req.params.id}`);
   db.findOneById(req.params.id, (err, docs) => {
-        if (err) {
-          console.log(`Error: failed to find document with listing_id = ${req.params.id}`);
-          res.sendStatus(404);
-        } else {
-          console.log("Successful response...");
-          res.json(docs.scheduleATour);
-        }
+    if (err) {
+      console.log(`Error: failed to find document with listing_id = ${req.params.id}`);
+      res.sendStatus(404);
+    } else {
+      console.log('Successful response...');
+      res.json(docs.scheduleATour);
+    }
   });
 });
 

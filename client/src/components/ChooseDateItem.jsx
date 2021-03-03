@@ -76,7 +76,7 @@ class ChooseDateItem extends React.Component {
             {this.props.day.split(' ')[0]}
           </NormalDiv>
           <DayDiv>
-            {this.props.day.split(' ')[2]}
+            {Number(this.props.day.split(' ')[2]).toString()}
           </DayDiv>
           <NormalDiv>
             {this.props.day.split(' ')[1]}

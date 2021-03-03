@@ -49,6 +49,12 @@ const SubmitButton = styled.button`
   -webkit-box-flex: 0;
   flex: 0 0 auto;
   display: block;
+
+  &:hover {
+    background-color: transparent;
+    border-color: rgb(217, 60, 35);
+    color: rgb(217, 60, 35);
+  }
 `;
 
 const TermsDiv = styled.div`

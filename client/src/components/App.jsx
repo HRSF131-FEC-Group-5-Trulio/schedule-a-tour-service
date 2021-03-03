@@ -54,7 +54,7 @@ class App extends React.Component {
   getProperty(id) {
     axios.get(`/api/ScheduleTour/${id}`)
       .then((listings) => {
-        this.setState({schedule: listings.data});
+        this.setState({ schedule: listings.data });
       })
       .catch((err) => console.log(err));
   }
