@@ -34,7 +34,7 @@ const createSchedule = () => {
     randHalfHour = ['00', '30'][Math.floor(Math.random() * 2)];
   }
 
-  schedule.time = `${randHour}:${randHalfHour}:00`;
+  schedule.time = `${randHour}:${randHalfHour}`;
   const boolean = [true, false];
   schedule.inPerson = boolean[Math.floor(Math.random() * 2)];
   schedule.financing = boolean[Math.floor(Math.random() * 2)];
@@ -73,7 +73,7 @@ const seedData = (entries) => {
   });
 };
 
-seedData(30)
+seedData(300)
   .then(() => { console.log('Wasn\'t that easy'); })
   .catch((err) => { console.log('Misdirect the student\'s quickly', err); })
   .then(() => { db.connectDb.close(); });

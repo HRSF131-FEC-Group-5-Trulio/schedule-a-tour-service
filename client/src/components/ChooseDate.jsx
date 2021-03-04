@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import ChooseDateItem from './ChooseDateItem';
@@ -105,25 +106,28 @@ class ChooseDate extends React.Component {
 
   handleDate(e) {
     const selectedDate = e.target.value;
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ selectedDate });
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.selectedDate(selectedDate);
   }
 
   handleSelected(e) {
     const selectedId = e.target.id;
     this.setState({ selectedId });
-    this.props.selectedId(selectedId);
   }
 
   makeDaysOfWeek() {
     let week = [];
     for (let i = 0; i < 7; i++) {
-      let curr = new Date(); //'2021-01-02T00:00:00'
-      let currTime = curr.getHours();
-      let add;
-      currTime > 16 ? add = 1 : add = 0;
-      let firstDay = new Date(curr.setDate(curr.getDate() + i + add));
-      week.push(firstDay.toDateString());
-    }
+		//'2021-01-02T00:00:00'
+		let curr = new Date();
+		let currTime = curr.getHours();
+		let add;
+		currTime > 16 ? (add = 1) : (add = 0);
+		let firstDay = new Date(curr.setDate(curr.getDate() + i + add));
+		week.push(firstDay.toDateString());
+	}
     return week;
   }
 
@@ -137,8 +141,8 @@ class ChooseDate extends React.Component {
 
   render() {
     const daysOfWeek = this.makeDaysOfWeek();
-
     const { left } = this.state;
+    const { selectedId } = this.state;
 
     return (
       <TestDiv>
@@ -146,17 +150,15 @@ class ChooseDate extends React.Component {
           <Padding>
             <InnerFormDiv id="container" left={left} onClick={this.handleSelected}>
               {
-                daysOfWeek.map((day, i) =>
-                  (
-                    <ChooseDateItem
-                      day={day}
-                      key={day}
-                      id={i}
-                      onclick={this.handleDate}
-                      selected={this.state.selectedId}
-                    />
-                  )
-                )
+                daysOfWeek.map((day, i) => (
+                  <ChooseDateItem
+                    day={day}
+                    key={day}
+                    id={i}
+                    onclick={this.handleDate}
+                    selected={selectedId}
+                  />
+                ))
               }
             </InnerFormDiv>
           </Padding>

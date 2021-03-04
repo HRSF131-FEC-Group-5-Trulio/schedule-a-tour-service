@@ -56,7 +56,6 @@ class PersonalInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
     };
   }
 
@@ -65,17 +64,17 @@ class PersonalInput extends React.Component {
       <div>
         <Partition>
           <Padding>
-            <InputDiv type="text" placeholder="namsoo lee" />
+            <InputDiv type="text" placeholder="name" />
           </Padding>
         </Partition>
         <PartitionPhone>
           <Padding>
-            <InputDiv type="text" placeholder="(111) 222-333" />
+            <InputDiv type="text" placeholder="111-222-333" />
           </Padding>
         </PartitionPhone>
         <PartitionFull>
           <Padding>
-            <InputDiv type="text" placeholder="hrsf-fec@gmail.com" />
+            <InputDiv type="text" placeholder="sample@gmail.com" />
           </Padding>
         </PartitionFull>
       </div>
