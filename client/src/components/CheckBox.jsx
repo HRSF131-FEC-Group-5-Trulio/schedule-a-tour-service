@@ -84,7 +84,7 @@ class CheckBox extends React.Component {
   }
 
   handleCheckboxChange(e) {
-    const checked = e.target.checked;
+    const { checked } = e.target;
     this.setState({ checked });
   }
 

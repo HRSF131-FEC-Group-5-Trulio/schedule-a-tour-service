@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -10,7 +11,7 @@ const OneThird = styled.div`
   border-style: solid;
   border-color: transparent;
   width: 310px;
-
+  margin-left: 100px;
   box-sizing: border-box;
   display: block;
   outline: none;
@@ -19,8 +20,8 @@ const OneThird = styled.div`
 
 const TabContainer = styled.div`
   box-shadow: rgba(59, 65, 68, 0.18) 0px 17px 21px -1px;
-  border-top-left-radius: ${props => props.tab === "schedule" ? "0px" : "8px"};
-  border-top-right-radius: ${props => props.tab === "schedule" ? "8px" : "0px"};
+  border-top-left-radius: ${(props) => (props.tab === 'schedule' ? '0px' : '8px')};
+  border-top-right-radius: ${(props) => (props.tab === 'schedule' ? '8px' : '0px')};
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 
@@ -44,7 +45,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getProperty(this.props.id);
+    // eslint-disable-next-line react/prop-types
+    const { id } = this.props;
+    this.getProperty(id);
   }
 
   handleClick(tab) {

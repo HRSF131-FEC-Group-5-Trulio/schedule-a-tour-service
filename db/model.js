@@ -12,7 +12,9 @@ connectDb.once('open', () => {
 });
 
 const propertySchema = new mongoose.Schema({
+  // eslint-disable-next-line spaced-comment
   id: Number, //property id
+  // eslint-disable-next-line spaced-comment
   scheduleATour: Array, //schedules belong to this property
 });
 

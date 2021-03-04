@@ -54,9 +54,11 @@ class ChooseTimeItem extends React.Component {
   }
 
   render() {
-    const time = this.props.time;
+    // eslint-disable-next-line react/prop-types
+    const { time } = this.props;
     return (
       <Option value={time}>{time}</Option>
+      // eslint-disable-next-line max-len
       // <Option value={props.time}>{props.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</Option>
     );
   }
